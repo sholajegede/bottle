@@ -1,0 +1,11 @@
+name = "bottle-ticker"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+BOTTLE_URL = "https://bottle.example.com"
+
+# Set the secret with: npx wrangler secret put TICK_SECRET

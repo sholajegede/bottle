@@ -1,0 +1,31 @@
+/node_modules
+/.next/
+/out/
+/build
+/coverage
+.DS_Store
+*.pem
+npm-debug.log*
+.env*
+!.env.example
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# local Postgres data (PGlite)
+/.data/
+
+# cli and ticker build output
+/cli/dist
+/cli/node_modules
+/ticker/node_modules
+/ticker/.wrangler
+
+# local working notes
+BUILD_PLAN.md
+BUILD_LOG.md
+CLAUDE.md
+AGENTS.md
+.agents/
+.claude/
+skills-lock.json

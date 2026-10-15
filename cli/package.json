@@ -1,0 +1,17 @@
+{
+  "name": "bottle-cli",
+  "version": "0.1.0",
+  "description": "Write it now. It arrives later, once. Schedule messages, webhooks and terminal bottles from the command line.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "bottle": "dist/bottle.mjs" },
+  "files": ["dist", "README.md"],
+  "engines": { "node": ">=20" },
+  "repository": { "type": "git", "url": "git+https://github.com/sholajegede/bottle.git", "directory": "cli" },
+  "keywords": ["bottle", "scheduler", "webhook", "idempotency", "kinde", "cli", "reminder"],
+  "devDependencies": { "esbuild": "^0.28.0" },
+  "scripts": {
+    "build": "node build.mjs",
+    "prepublishOnly": "node build.mjs"
+  }
+}

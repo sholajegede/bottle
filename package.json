@@ -1,0 +1,42 @@
+{
+  "name": "bottle",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently -n web,tick -c cyan,gray \"next dev\" \"node --env-file-if-exists=.env.local scripts/tick.mjs\"",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test --test-timeout=60000 tests/*.test.ts",
+    "db:migrate": "tsx --env-file=.env.local scripts/migrate.ts",
+    "bottle": "node cli/build.mjs > /dev/null && node cli/dist/bottle.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@kinde-oss/kinde-auth-nextjs": "^2.13.2",
+    "geist": "^1.7.2",
+    "jose": "^6.2.12",
+    "lucide-react": "^1.53.0",
+    "next": "16.4.0",
+    "pg": "^8.23.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "concurrently": "^10.0.6",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "playwright": "^1.64.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}
