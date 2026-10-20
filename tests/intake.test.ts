@@ -40,6 +40,15 @@ test("a second copy of an event is stored once and counted as a duplicate", asyn
   await db.close();
 });
 
+test("a plan change in the shape Kinde sends sets the plan from data.plan.key", async () => {
+  const db = await setup();
+  await accept(db, event("wh_real", "customer.plan_changed", 0, { plan: { key: "pro" }, customer_type: "user" }));
+  const result = await drain(db, billingHandlers, { now: at(5) });
+  assert.equal(result.applied, 1);
+  assert.equal(await plan(db), "pro");
+  await db.close();
+});
+
 test("a payment that arrives five times grants the allowance once", async () => {
   const db = await setup();
   await accept(db, event("wh_plan", "customer.plan_changed", 0, { plan_code: "pro" }));

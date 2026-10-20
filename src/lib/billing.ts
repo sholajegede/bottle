@@ -33,7 +33,9 @@ const data = (event: StoredEvent) => (isObject(event.payload.data) ? event.paylo
 
 /** Map the plan code in an event to a Bottle plan. PRO_PLAN_CODE names the paid plan in Kinde. */
 export function planFrom(event: StoredEvent): Plan | undefined {
-  const code = pick(data(event), ["plan_code", "plan_key", "plan"]);
+  const body = data(event);
+  // Kinde sends the plan as an object: data.plan.key. Older shapes carry a flat plan_code.
+  const code = pick(isObject(body.plan) ? body.plan : undefined, ["key", "code"]) ?? pick(body, ["plan_code", "plan_key", "plan"]);
   if (!code) return undefined;
   if (isPlan(code)) return code;
   return code === (process.env.KINDE_PRO_PLAN_CODE ?? "pro") ? "pro" : "free";
