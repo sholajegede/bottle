@@ -205,7 +205,7 @@ export default function Home() {
             <div className="relative z-10">
               <p className="label !text-white/80">Pro</p>
               <p className="serif mt-3 text-[2.6rem]">
-                $5 <span className="font-mono text-sm font-normal tracking-normal text-white/75">a month</span>
+                $9 <span className="font-mono text-sm font-normal tracking-normal text-white/75">a month</span>
               </p>
               <ul className="mt-5 space-y-2.5 text-sm">
                 {[`${PLANS.pro.monthly} bottles a month`, "Everything in Free", "Billing handled by Kinde", "Cancel at any time"].map((item) => (
