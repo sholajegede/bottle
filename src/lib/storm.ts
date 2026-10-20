@@ -53,7 +53,7 @@ export async function runStorm(db: Db): Promise<StormResult> {
   const base = Date.now();
   const period = new Date(base).toISOString().slice(0, 7);
   const cancelled = { key: "cancel", type: "customer.agreement_cancelled", at: base - 180_000, data: {} };
-  const upgraded = { key: "plan", type: "customer.plan_changed", at: base - 120_000, data: { plan_code: "pro", fail_once: true } };
+  const upgraded = { key: "plan", type: "customer.plan_changed", at: base - 120_000, data: { plan: { key: "pro" }, fail_once: true } };
   const paid = { key: "pay", type: "customer.payment_succeeded", at: base - 60_000, data: {} };
 
   const deliveries: Array<[string, typeof paid]> = [
