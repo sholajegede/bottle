@@ -119,13 +119,14 @@ export async function drain(
   return result;
 }
 
-export async function replay(db: Db, eventId: string, now = new Date()): Promise<boolean> {
+export async function replay(db: Db, eventId: string, now = new Date(), accountId?: string): Promise<boolean> {
   const rows = await db.query(
     `UPDATE inbox_events
         SET status = 'received', next_attempt_at = $2, replays = replays + 1, attempts = 0
       WHERE id = $1 AND status IN ('applied', 'ignored', 'failed', 'dead')
+        AND ($3::text IS NULL OR account_id = $3)
       RETURNING id`,
-    [eventId, now],
+    [eventId, now, accountId ?? null],
   );
   return rows.length > 0;
 }

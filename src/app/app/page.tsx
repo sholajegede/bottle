@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { BottleList, type BottleView } from "@/components/bottle-list";
 import { Compose } from "@/components/compose";
+import { ReplayButton } from "@/components/replay-button";
 import { Frame, signInHref, SiteFooter, SiteNav } from "@/components/site-chrome";
 import { Band } from "@/components/ui";
 import { currentAccount } from "@/lib/auth";
@@ -94,7 +95,8 @@ export default async function AppPage() {
                     <li key={event.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5">
                       <span className="text-ink/90">{event.type}</span>
                       <span className="text-soft">{event.result ?? event.status}</span>
-                      {event.seen_count > 1 && <span className="ml-auto text-sun">arrived {event.seen_count} times, counted once</span>}
+                      {event.seen_count > 1 && <span className="text-sun">arrived {event.seen_count} times, counted once</span>}
+                      {event.status !== "received" && event.status !== "processing" && <ReplayButton id={event.id} />}
                     </li>
                   ))}
                 </ul>

@@ -109,6 +109,16 @@ test("an event that was claimed but never finished is claimed again", async () =
   await db.close();
 });
 
+test("a replay is refused for an account that does not own the event", async () => {
+  const db = await setup();
+  await db.query(`INSERT INTO accounts (id, email) VALUES ('kp_bob', 'bob@example.com')`);
+  const paid = await accept(db, event("wh_own", "customer.payment_succeeded", 1));
+  await drain(db, billingHandlers, { now: at(2) });
+  assert.equal(await replay(db, paid.eventId, at(3), "kp_bob"), false);
+  assert.equal(await replay(db, paid.eventId, at(3), "kp_ada"), true);
+  await db.close();
+});
+
 test("a replay runs the event again and changes nothing", async () => {
   const db = await setup();
   await accept(db, event("wh_plan", "customer.plan_changed", 0, { plan_code: "pro" }));
